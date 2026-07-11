@@ -40,6 +40,37 @@ El flujo de una petición es: componente Livewire -> repositorio (vía interfaz)
 - **DTO.** `PlayerNoteData` (`final readonly`, constructor promotion) transporta los datos del componente al repositorio con tipos explícitos, en lugar de arrays asociativos.
 - **Inyección en Livewire.** El repositorio se inyecta en `boot()` sobre una propiedad protegida, porque las dependencias no serializables no pueden viajar en el payload que Livewire hidrata entre requests.
 
+## Modelo de datos
+
+```mermaid
+
+    erDiagram
+
+    users ||--o{ player_notes : "escribe (author)"
+
+    players ||--o{ player_notes : "recibe"
+
+    users {
+        string name
+        string email
+        string role "enum: support | viewer"
+    }
+
+    players {
+        string username
+    }
+
+    player_notes {
+        string content "max 1000"
+        bigint player_id FK
+        bigint user_id FK "autor de la nota"
+        timestamp created_at
+    }
+
+```
+
+Nota: Los roles se agregaron de forma ficticia
+
 ## Decisiones de diseño
 
 1. **Se reutiliza el modelo `User` de Laravel** para los agentes de soporte. Cumple con lo necesario (autenticación, nombre para mostrar como autor); crear un modelo de staff aparte habría sido sobreingeniería para este alcance. Los jugadores sí son un modelo propio (`Player`), porque en el dominio real el staff y los clientes de la plataforma son entidades distintas.
