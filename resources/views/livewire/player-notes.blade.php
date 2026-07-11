@@ -2,7 +2,7 @@
     <h1 class="text-3xl uppercase font-black text-center mb-12">Notas Jugadores</h1>
 
     <div class="flex items-end justify-between gap-4 mb-4">
-        <flux:select wire:model.live="filterPlayerId" label="Filtrar por jugador" placeholder="Todos los jugadores" class="max-w-xs">
+        <flux:select wire:model.live="filterPlayerId" label="Filtrar por jugador" placeholder="-- Selecciona un jugador --" class="max-w-xs">
             @foreach ($players as $player)
                 <flux:select.option value="{{ $player->id }}">
                     {{ $player->username }}
@@ -34,7 +34,11 @@
                     <flux:table.cell>{{ $note->player->username }}</flux:table.cell>
                     <flux:table.cell>{{ $note->content }}</flux:table.cell>
                     <flux:table.cell>{{ $note->author->name }}</flux:table.cell>
-                    <flux:table.cell>{{ $note->created_at->diffForHumans() }}</flux:table.cell>
+                    <flux:table.cell>
+                        <span title="{{ $note->created_at->format('d/m/Y H:i') }}">
+                            {{ $note->created_at->diffForHumans() }}
+                        </span>
+                    </flux:table.cell>
                 </flux:table.row>
             @endforeach
 
