@@ -69,8 +69,6 @@ El flujo de una petición es: componente Livewire -> repositorio (vía interfaz)
 
 ```
 
-Nota: Los roles se agregaron de forma ficticia
-
 ## Decisiones de diseño
 
 1. **Se reutiliza el modelo `User` de Laravel** para los agentes de soporte. Cumple con lo necesario (autenticación, nombre para mostrar como autor); crear un modelo de staff aparte habría sido sobreingeniería para este alcance. Los jugadores sí son un modelo propio (`Player`), porque en el dominio real el staff y los clientes de la plataforma son entidades distintas.
