@@ -18,13 +18,13 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
-npm install && npm run build
-php artisan serve
+npm install
+composer run dev
 ```
 
 El seeder crea dos usuarios para probar el sistema de permisos:
 
-| Email | Password | Rol |
+| Correo | Contraseña | Rol |
 |---|---|---|
 | soporte@correo.com | password | support (puede crear notas) |
 | invitado@correo.com | password | viewer (solo lectura) |
